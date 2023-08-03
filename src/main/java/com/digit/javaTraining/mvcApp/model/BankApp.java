@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Random;
 
 public class BankApp {
 	int bank_id;
@@ -280,6 +281,7 @@ public class BankApp {
 
 	public boolean loan() {
 		try {
+
 			pstmt = con.prepareStatement("select * from loan where l_id=? ");
 
 			pstmt.setInt(1, lid);
@@ -311,6 +313,94 @@ public class BankApp {
 		}
 		return false;
 
+	}
+
+	public boolean transfer(String r_ifsc, int r_accno, int amount) {
+		try {
+			int t_id = new Random().nextInt(900000) + 100000;
+			pstmt = con
+					.prepareStatement("select * from bankapp where cust_id=? and ifsc_code=? and acc_no=? and pin=?");
+			pstmt.setInt(1, cust_id);
+			pstmt.setString(2, ifsc_code);
+			pstmt.setInt(3, acc_no);
+			pstmt.setInt(4, pin);
+
+			ResultSet res1 = pstmt.executeQuery();
+
+			if (res1.next() == true) {
+				pstmt = con.prepareStatement("select * from bankapp where ifsc_code=? and acc_no=?");
+				pstmt.setString(1, r_ifsc);
+				pstmt.setInt(2, r_accno);
+
+				ResultSet res2 = pstmt.executeQuery();
+				if (res2.next() == true) {
+					pstmt = con.prepareStatement("select balance from bankapp where acc_no=?");
+					pstmt.setInt(1, acc_no);
+
+					ResultSet res3 = pstmt.executeQuery();
+					res3.next();
+					int bal = res3.getInt(1);
+					if (bal > amount) {
+						pstmt = con.prepareStatement("update bankapp set balance=balance-? where acc_no=?");
+						pstmt.setInt(1, amount);
+						pstmt.setInt(2, acc_no);
+
+						int x1 = pstmt.executeUpdate();
+						if (x1 > 0) {
+							pstmt = con.prepareStatement("update bankapp set balance=balance+? where acc_no=?");
+							pstmt.setInt(1, amount);
+							pstmt.setInt(2, r_accno);
+
+							int x2 = pstmt.executeUpdate();
+							if (x2 > 0) {
+								pstmt = con.prepareStatement("insert into transfer_status values(?,?,?,?,?,?,?,?) ");
+								pstmt.setInt(1, cust_id);
+								pstmt.setString(2, bank_name);
+								pstmt.setString(3, ifsc_code);
+								pstmt.setInt(4, acc_no);
+								pstmt.setString(5, r_ifsc);
+								pstmt.setInt(6, r_accno);
+								pstmt.setInt(7, amount);
+								pstmt.setInt(8, t_id);
+
+								int x3 = pstmt.executeUpdate();
+								if (x3 > 0) {
+									// System.out.println("transfer success");
+									// resp.sendRedirect("/BankingApplication/TransferSuccess.html");
+									return true;
+								} else {
+									// System.out.println("store transaction detail");
+									// resp.sendRedirect("/BankingApplication/TransferFail.jsp");
+									return false;
+								}
+							} else {
+								// System.out.println("credit amount to receiver");
+								// resp.sendRedirect("/BankingApplication/TransferFail.jsp");
+								return false;
+							}
+						} else {
+							// System.out.println("debit amount from sender");
+							// resp.sendRedirect("/BankingApplication/TransferFail.jsp");
+							return false;
+						}
+					} else {
+						// System.out.println("check sufficient balance");
+						// resp.sendRedirect("/BankingApplication/TransferFail.jsp");
+						return false;
+					}
+				} else {
+					// System.out.println("receiver ifsc and accno");
+					// resp.sendRedirect("/BankingApplication/TransferFail.jsp");
+					return false;
+				}
+			} else {
+				// System.out.println("sender cust_id,ifsc");
+				// resp.sendRedirect("/BankingApplication/TransferFail.jsp");
+				return false;
+			}
+		} catch (Exception e) {
+		}
+		return false;
 	}
 
 }
