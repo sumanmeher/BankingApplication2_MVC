@@ -1,29 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Transfer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            color: #000;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+            display: grid;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: 500;
+            grid-column: 1;
+            grid-row: span 1;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            grid-column: 2;
+            grid-row: span 1;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #2F80ED;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #2F80ED;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+            grid-column: span 2;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #56CCF2;
+        }
+        header {
+            background: linear-gradient(to right, #56CCF2, #2F80ED);
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 20px;
+        }
+        footer {
+            color: #000;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-	<form action="Transfer">
-		<label >Customer ID</label>
-        <input type="text" name="cust_id" ><br><br>
-        <label >Bank Name</label>
-        <input type="text" name="bank_name" ><br><br>
-        <label >IFSC</label>
-        <input type="text" name="sender_ifsc" ><br><br>
-        <label >Sender Account No.</label>
-        <input type="text" name="sender_accno" ><br><br>
-        <label >Receiver IFSC</label>
-        <input type="text" name="receiver_ifsc" ><br><br>
-        <label >Receiver Account No.</label>
-        <input type="text" name="receiver_accno" ><br><br>
-        <label >Amount</label>
-        <input type="text" name="amount" ><br><br>
-        <label >Pin</label>
-        <input type="password" name="pin" ><br><br>
+    <header>
+        <h1>Transfer Amount</h1>
+    </header>
+    <form action="Transfer" method="post">
+        <label for="cust_id">Customer ID</label>
+        <input type="text" name="cust_id" id="cust_id" placeholder="Enter Customer ID">
+        <label for="bank_name">Bank Name</label>
+        <input type="text" name="bank_name" id="bank_name" placeholder="Enter Bank Name">
+        <label for="sender_ifsc">IFSC</label>
+        <input type="text" name="sender_ifsc" id="sender_ifsc" placeholder="Enter IFSC">
+        <label for="sender_accno">Sender Account No.</label>
+        <input type="text" name="sender_accno" id="sender_accno" placeholder="Enter Sender Account No.">
+        <label for="receiver_ifsc">Receiver IFSC</label>
+        <input type="text" name="receiver_ifsc" id="receiver_ifsc" placeholder="Enter Receiver IFSC">
+        <label for="receiver_accno">Receiver Account No.</label>
+        <input type="text" name="receiver_accno" id="receiver_accno" placeholder="Enter Receiver Account No.">
+        <label for="amount">Amount</label>
+        <input type="text" name="amount" id="amount" placeholder="Enter Amount">
+        <label for="pin">Pin</label>
+        <input type="password" name="pin" id="pin" placeholder="Enter PIN">
         <input type="submit" value="Transfer">
-	</form>
-
+    </form>
+    <footer>
+        <p>&copy; 2023 Bank Application. All rights reserved.</p>
+    </footer>
 </body>
+
 </html>

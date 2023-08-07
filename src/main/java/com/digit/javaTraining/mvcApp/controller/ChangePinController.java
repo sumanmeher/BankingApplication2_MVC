@@ -27,9 +27,9 @@ public class ChangePinController extends HttpServlet{
 			bankApp.setPin(old_pin);
 			bankApp.setCpin(confirm_pin);
 			if (bankApp.changePin() == true) {
-				resp.sendRedirect("/BankingApplication/PinChangeSuccess.html");
+				resp.sendRedirect("/BankingApplication2_MVC/PinChangeSuccess.html");
 			} else {
-				resp.sendRedirect("/BankingApplication/PinChangeFail.html");
+				resp.sendRedirect("/BankingApplication2_MVC/PinChangeFail.html");
 			}
 			
 		}catch (Exception e) {

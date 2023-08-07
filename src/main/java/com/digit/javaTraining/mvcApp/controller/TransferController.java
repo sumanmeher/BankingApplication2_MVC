@@ -35,7 +35,7 @@ public class TransferController extends HttpServlet {
 		if (bankApp.transfer(r_ifsc, r_accno, amount) == true) {
 			resp.sendRedirect("/BankingApplication2_MVC/TransferSuccess.html");
 		} else {
-			resp.sendRedirect("/BankingApplication/TransferFail.jsp");
+			resp.sendRedirect("/BankingApplication2_MVC/TransferFail.jsp");
 		}
 
 	}
