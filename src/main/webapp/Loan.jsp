@@ -68,6 +68,11 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #2F80ED;
 }
+footer {
+            color: #000;
+            text-align: center;
+            padding: 20px;
+        }
 
 </style>
 </head>

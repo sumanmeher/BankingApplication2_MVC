@@ -50,7 +50,7 @@ h3 {
 
 .footer {
 	text-align: center;
-	color: #777;
+	color: #000;
 	margin-top: 30px;
 }
 </style>

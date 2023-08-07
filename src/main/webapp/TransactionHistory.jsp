@@ -69,11 +69,11 @@
         }
 
         .sent {
-            color: #FF6961;
+            color: #fd3f34;
         }
 
         .received {
-            color: #77DD77;
+            color: #4cb74c;
         }
         footer {
             color: #000;
